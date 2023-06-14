@@ -1,28 +1,49 @@
-var trash = document.getElementsByClassName("fa-trash")
-for ( let btndelete of trash) {
-    btndelete.addEventListener("click", function(){
-        btndelete.parentElement.parentElement.parentElement.remove()
-    })
-}
-
+//like button       
 var btnLike = document.getElementsByClassName("fa-heart")
-for(let heart of btnLike) {
-    heart.addEventListener('click', function(){
-        heart.classList.toggle('red')
+for(let i = 0; i < btnLike.length; i++) {
+    btnLike[i].addEventListener('click', function(){
+        btnLike[i].classList.toggle('red')
     })
 }
 
-btnPlus = document.getElementsByClassName("fa-plus")
+//delete button
+let btnTrash = document.getElementsByClassName("fa-trash")
+for ( let trash of btnTrash) {
+    trash.addEventListener("click", function(){
+        trash.parentElement.remove()
+        sum()
+    })
+}
+
+//increment 
+var btnPlus = document.getElementsByClassName("fa-plus")
 for(let plus of btnPlus) {
     plus.addEventListener('click', function(){
         plus.nextElementSibling.innerHTML++;
+        sum()
     })
 }
 
-btnMinus = document.getElementsByClassName("fa-minus")
+//decrement
+var btnMinus = document.getElementsByClassName("fa-minus")
 for(let minus of btnMinus) {
     minus.addEventListener('click', function(){
-        if(minus.nextElementSibling.innerHTML > 0){
-            minus.nextElementSibling.innerHTML--;
-        }})
+        if(parseInt(minus.previousElementSibling.innerHTML) > 0)
+            minus.previousElementSibling.innerHTML--;
+            sum()
+        })
 }
+
+//Sum(using Arrow Functions && Template Literals)
+const sum=() => {
+    let quantity = document.querySelectorAll(".item-quantity")
+    let price = document.querySelectorAll(".item-price")
+    let sum = 0
+    for(let i = 0; i < quantity.length; i++) {
+        sum += quantity[i].innerHTML * price[i].innerHTML
+    }
+    document.getElementById("total-label").innerHTML = `Total: $${sum}`
+}
+
+
+
